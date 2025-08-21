@@ -198,7 +198,21 @@
               footer_about_text: 'footer-about-text',
               footer_copy_text: 'footer-copy-text'
             });
-            </script>
-        </body>
-        </html>
+        </script>
+
+        <!-- Script de redirección para tokens de Netlify Identity -->
+        <script>
+          (function() {
+            var hash = window.location.hash;
+            if (hash && (hash.includes('invite_token') || hash.includes('recovery_token'))) {
+              // Redirige a /admin conservando el token
+              window.location.href = '/admin/' + hash;
+            }
+          })();
+        </script>
+
+    </body>
+</html>
+
+
         
