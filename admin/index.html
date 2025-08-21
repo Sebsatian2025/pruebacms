@@ -2,30 +2,36 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0" 
+    />
     <title>Content Manager</title>
   </head>
   <body>
 
     <!-- 1) Carga de Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- o, si prefieres seguir con Netlify CMS clásico, usa:
+    <script src="https://unpkg.com/netlify-cms-app/dist/netlify-cms.js"></script>
+    -->
 
     <!-- 2) Carga del widget de Netlify Identity -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <script>
-      // 3) Inicializa Identity
+      // 3) Inicializa Identity y enlaza el botón
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.init();
+        netlifyIdentity.init();
 
-        // 4) Si llega un invite_token o recovery_token en el hash, abre el modal
-        const hash = location.hash;
-        if (hash.includes('invite_token') || hash.includes('recovery_token')) {
-          window.netlifyIdentity.open();
+        // Si vienes con invite_token o recovery_token, abre el modal
+        const h = window.location.hash;
+        if (h.includes('invite_token') || h.includes('recovery_token')) {
+          netlifyIdentity.open();
         }
 
-        // 5) Al completar el login/aceptar invitación, recarga para entrar al CMS
-        window.netlifyIdentity.on('login', () => {
+        // Después de loguearte/aceptar invitación, recarga el CMS
+        netlifyIdentity.on('login', () => {
           window.location.href = '/admin/';
         });
       }
