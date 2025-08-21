@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+  <body>
+    <p>Hola,</p>
+    <p>Has solicitado restablecer tu contraseña para {{ .SiteURL }}.</p>
+    <p>Haz clic en el siguiente enlace para establecer una nueva contraseña:</p>
+    <p>
+      <a href="{{ .SiteURL }}/admin#recovery_token={{ .Token }}">
+        Restablecer contraseña
+      </a>
+    </p>
+    <p>Si no solicitaste este cambio, puedes ignorar este mensaje.</p>
+  </body>
+</html>
