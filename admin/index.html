@@ -6,9 +6,30 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- CDN unpkg (rama estable 3.x) -->
+
+    <!-- 1) Carga de Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <!-- Alternativa jsDelivr (por si unpkg te bloquea) -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script> -->
+
+    <!-- 2) Carga del widget de Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <script>
+      // 3) Inicializa Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.init();
+
+        // 4) Si llega un invite_token o recovery_token en el hash, abre el modal
+        const hash = location.hash;
+        if (hash.includes('invite_token') || hash.includes('recovery_token')) {
+          window.netlifyIdentity.open();
+        }
+
+        // 5) Al completar el login/aceptar invitación, recarga para entrar al CMS
+        window.netlifyIdentity.on('login', () => {
+          window.location.href = '/admin/';
+        });
+      }
+    </script>
+
   </body>
 </html>
